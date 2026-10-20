@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { commerce } from "@/lib/commerce";
 import { absoluteUrl } from "@/lib/seo";
 
-const staticPaths = ["/", "/collections/all", "/offers", "/about", "/wholesale", "/shipping", "/returns", "/faq", "/contact", "/privacy", "/terms"];
+const staticPaths = ["/", "/collections/all", "/offers", "/needle-guide", "/about", "/wholesale", "/shipping", "/returns", "/faq", "/contact", "/privacy", "/terms"];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const [products, categories] = await Promise.all([commerce.getProducts(), commerce.getCategories()]);

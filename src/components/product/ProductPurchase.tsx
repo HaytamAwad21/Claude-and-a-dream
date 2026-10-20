@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useSyncExternalStore } from "react";
 import { QuantityInput } from "@/components/cart/QuantityInput";
 import { Button } from "@/components/ui/Button";
 import { Icon } from "@/components/ui/Icon";
@@ -16,10 +16,36 @@ function findVariant(product: Product, selected: Record<string, string>) {
   return product.variants.find((v) => Object.entries(selected).every(([k, val]) => v.options[k] === val));
 }
 
+const subscribeToHistory = (onChange: () => void) => {
+  window.addEventListener("popstate", onChange);
+  return () => window.removeEventListener("popstate", onChange);
+};
+
+/**
+ * Variant requested in the URL, e.g. /products/x?size=03 (used by the needle guide).
+ * Keys are option names in lowercase with dashes ("size", "pack-size").
+ */
+function useUrlVariant(product: Product) {
+  const search = useSyncExternalStore(subscribeToHistory, () => window.location.search, () => "");
+  return useMemo(() => {
+    const params = new URLSearchParams(search);
+    const wanted: Record<string, string> = {};
+    for (const opt of product.options) {
+      const value = params.get(opt.name.toLowerCase().replace(/\s+/g, "-"));
+      if (value && opt.values.includes(value)) wanted[opt.name] = value;
+    }
+    if (Object.keys(wanted).length === 0) return undefined;
+    const matches = product.variants.filter((v) => Object.entries(wanted).every(([k, val]) => v.options[k] === val));
+    return matches.find((v) => v.stock > 0) ?? matches[0];
+  }, [product, search]);
+}
+
 /** Variant selector, quantity, live tier price and add to cart. */
 export function ProductPurchase({ product }: { product: Product }) {
-  const initial = product.variants.find((v) => v.stock > 0) ?? product.variants[0];
-  const [selected, setSelected] = useState<Record<string, string>>(initial.options);
+  const fromUrl = useUrlVariant(product);
+  const initial = fromUrl ?? product.variants.find((v) => v.stock > 0) ?? product.variants[0];
+  const [picked, setPicked] = useState<Record<string, string> | null>(null);
+  const selected = picked ?? initial.options;
   const [qty, setQty] = useState(1);
   const [added, setAdded] = useState(false);
 
@@ -47,7 +73,7 @@ export function ProductPurchase({ product }: { product: Product }) {
     const next = { ...selected, [name]: value };
     // If the combination doesn't exist, fall back to the first variant with this value.
     const v = findVariant(product, next) ?? product.variants.find((x) => x.options[name] === value);
-    setSelected(v ? v.options : next);
+    setPicked(v ? v.options : next);
     setQty((q) => Math.min(q, Math.max(1, v?.stock ?? 1)));
     setAdded(false);
   }

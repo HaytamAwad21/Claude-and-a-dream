@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Gallery } from "@/components/product/Gallery";
 import { ProductGrid } from "@/components/product/ProductGrid";
@@ -73,6 +74,14 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
                 </li>
               ))}
             </ul>
+          )}
+          {product.needleConfig && (
+            <Link
+              href="/needle-guide"
+              className="mt-4 inline-block text-sm text-muted underline decoration-acid underline-offset-4 hover:text-bone"
+            >
+              Not sure which needle? Open the needle guide →
+            </Link>
           )}
           <div className="mt-8 border-t border-line pt-8">
             <ProductPurchase product={product} />

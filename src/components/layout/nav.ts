@@ -4,6 +4,7 @@ export const mainNav = [
   { label: "Needles", href: "/collections/cartridge-needles" },
   { label: "Shop all", href: "/collections/all", mega: true },
   { label: "Studio kits", href: "/collections/bundles-kits" },
+  { label: "Needle guide", href: "/needle-guide" },
   { label: "Offers", href: "/offers" },
   { label: "Wholesale", href: "/wholesale" },
   { label: "About", href: "/about" },
@@ -15,6 +16,7 @@ export const shopLinks = [
 ];
 
 export const helpLinks = [
+  { label: "Needle guide", href: "/needle-guide" },
   { label: "Shipping", href: "/shipping" },
   { label: "Returns", href: "/returns" },
   { label: "FAQ", href: "/faq" },
