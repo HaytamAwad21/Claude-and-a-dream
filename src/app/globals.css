@@ -5,27 +5,32 @@
    Change brand colors, fonts, radius and spacing here.
    Every token becomes a Tailwind utility (bg-ink, text-bone,
    border-line, text-acid, rounded-card, font-display, …).
+   Token names are roles, not colors: "ink" is the page background
+   and "bone" the primary text in both themes.
+   Light is the default; [data-theme="dark"] below restores the
+   original dark palette. Keep both blocks in sync when adding a color.
    ────────────────────────────────────────────────────────────── */
 @theme {
-  /* Base palette */
-  --color-ink: #0b0b0b; /* page background */
-  --color-charcoal: #131313; /* alt section background */
-  --color-surface: #1b1b1b; /* cards, inputs */
-  --color-surface-2: #242424; /* hover / raised */
-  --color-line: #2b2b2b; /* borders, dividers */
-  --color-line-strong: #3d3d3d;
-  --color-bone: #ede9e3; /* primary text (off-white) */
-  --color-muted: #9a958e; /* secondary text, AA on ink */
-  --color-faint: #6b6762; /* tertiary, decorative only */
+  /* Base palette (light) */
+  --color-ink: #ffffff; /* page background */
+  --color-charcoal: #f6f4f1; /* alt section background */
+  --color-surface: #f1eee9; /* cards, inputs */
+  --color-surface-2: #e8e4de; /* hover / raised */
+  --color-line: #e4e0da; /* borders, dividers */
+  --color-line-strong: #cbc5bd;
+  --color-bone: #151515; /* primary text (near-black) */
+  --color-muted: #5f5a54; /* secondary text, AA on ink and charcoal */
+  --color-faint: #8e8881; /* tertiary, decorative only */
 
-  /* The one accent. Use sparingly: CTAs, sale prices, focus, key numbers. */
-  --color-acid: #c8ff2e;
-  --color-acid-dim: #a6d61f;
-  --color-on-acid: #0b0b0b; /* text placed on the accent */
+  /* The one accent. Use sparingly: CTAs, sale prices, focus, key numbers.
+     Darker in light mode so text-acid stays AA on white. */
+  --color-acid: #4a7a00;
+  --color-acid-dim: #3b6200;
+  --color-on-acid: #ffffff; /* text placed on the accent */
 
   /* Feedback (functional only) */
-  --color-danger: #ff5a4e;
-  --color-warning: #ffb547;
+  --color-danger: #d0342c;
+  --color-warning: #a35f00;
 
   /* Typography (variables are set by next/font in layout.tsx) */
   --font-display: var(--font-anton), "Impact", "Arial Narrow", sans-serif;
@@ -76,6 +81,29 @@
   }
 }
 
+/* Dark theme: the original palette. Set by the inline script in layout.tsx
+   and by ThemeToggle. */
+[data-theme="dark"] {
+  color-scheme: dark;
+  --color-ink: #0b0b0b;
+  --color-charcoal: #131313;
+  --color-surface: #1b1b1b;
+  --color-surface-2: #242424;
+  --color-line: #2b2b2b;
+  --color-line-strong: #3d3d3d;
+  --color-bone: #ede9e3;
+  --color-muted: #9a958e;
+  --color-faint: #6b6762;
+  --color-acid: #c8ff2e;
+  --color-acid-dim: #a6d61f;
+  --color-on-acid: #0b0b0b;
+  --color-danger: #ff5a4e;
+  --color-warning: #ffb547;
+}
+
+/* `dark:` utilities follow the toggle, not the OS setting. */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
 @keyframes slide-in-left {
   from {
     transform: translateX(-100%);
@@ -88,7 +116,7 @@
 /* ────────────────────────── Base ────────────────────────── */
 @layer base {
   html {
-    color-scheme: dark;
+    color-scheme: light;
     -webkit-text-size-adjust: 100%;
     scroll-padding-top: calc(var(--spacing-header) + 1rem);
   }
@@ -99,6 +127,9 @@
     font-family: var(--font-sans);
     font-feature-settings: "ss01", "cv11";
     text-rendering: optimizeLegibility;
+    transition:
+      background-color 0.3s ease,
+      color 0.3s ease;
   }
 
   /* Subtle film grain over everything. Pointer-events none, GPU-cheap. */

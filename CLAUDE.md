@@ -17,12 +17,13 @@ B2B tattoo supply store (placeholder brand INKFORGE). Two people commit to this 
 Next.js 16 (App Router, `cacheComponents` + `partialPrefetching`), TypeScript, Tailwind CSS v4, no backend.
 
 - `src/config/site.ts`: brand name, contact, free-shipping threshold, returns, volume tiers, stats. Single source for all of these.
-- `src/app/globals.css` `@theme` block: all design tokens (colors, radius, spacing). One accent color (`--color-acid`), used sparingly.
+- `src/app/globals.css` `@theme` block: all design tokens (colors, radius, spacing). One accent color (`--color-acid`), used sparingly. Light theme is the default; the `[data-theme="dark"]` block overrides the same color tokens with the dark palette. Add any new color to both.
+- Theme switching: `src/lib/theme.ts` (storage key + inline `<head>` script in `layout.tsx` that applies a saved dark theme before paint) and `src/components/layout/ThemeToggle.tsx` (header button, saves to localStorage). `dark:` utilities follow `data-theme`, not the OS setting.
 - `src/data/products.ts`: mock catalogue via `defineProduct()` (variants generated from `options`). Categories, FAQ, testimonials, gallery, needle guide also in `src/data/`.
 - `src/lib/commerce/`: provider interface + local mock. UI imports only from here, so Shopify can replace it later.
 - `src/lib/store/`: cart and wishlist in localStorage (`useSyncExternalStore`).
 - `src/lib/checkout.ts`: mock checkout adapter (swap for Stripe/Shopify).
-- `src/components/product/ProductArt.tsx`: SVG placeholder product art until real photos (`photos` field on products).
+- `src/components/product/ProductArt.tsx`: SVG placeholder product art until real photos (`photos` field on products). Uses fixed dark studio colors in both themes.
 
 ## Conventions
 

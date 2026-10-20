@@ -13,6 +13,7 @@ import { useWishlist } from "@/lib/store/wishlist";
 import { ProductArt } from "@/components/product/ProductArt";
 import { helpLinks, mainNav } from "./nav";
 import { SearchDialog } from "./SearchDialog";
+import { ThemeToggle } from "./ThemeToggle";
 
 export function Header() {
   const pathname = usePathname();
@@ -37,12 +38,13 @@ export function Header() {
       </a>
 
       <div className="border-b border-line bg-ink">
-        <div className="container-site flex h-9 items-center justify-center gap-6 overflow-hidden text-center sm:justify-between">
-          <p className="eyebrow text-[10px] text-muted">
-            <span className="text-acid">●</span> {freeShippingLabel} · Ships worldwide from {siteConfig.shipping.origin}
-          </p>
-          <p className="eyebrow hidden text-[10px] text-muted sm:block">
-            {siteConfig.returns.days}-day returns · Volume pricing on every box
+        <div className="container-site flex h-9 items-center justify-center overflow-hidden text-center">
+          <p className="eyebrow whitespace-nowrap text-[10px] text-muted">
+            <span className="text-acid">●</span> {freeShippingLabel} · Worldwide shipping
+            <span className="hidden sm:inline">
+              {" "}
+              · {siteConfig.returns.days}-day returns · Volume pricing on every box
+            </span>
           </p>
         </div>
       </div>
@@ -115,6 +117,7 @@ export function Header() {
               <Icon name="search" size={18} />
               <span className="hidden text-sm xl:inline">Search needles, SKUs…</span>
             </button>
+            <ThemeToggle />
             <Link
               href="/wishlist"
               className="relative flex h-11 w-11 items-center justify-center text-bone transition-colors hover:text-acid"
