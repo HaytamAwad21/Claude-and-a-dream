@@ -39,6 +39,7 @@ export const metadata: Metadata = {
   },
   twitter: { card: "summary_large_image" },
   alternates: { canonical: "/" },
+  robots: siteConfig.allowIndexing ? undefined : { index: false, follow: false },
 };
 
 // Zoom stays enabled: no maximumScale / userScalable overrides.

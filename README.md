@@ -13,6 +13,8 @@ npm start          # serve the production build
 
 Set `NEXT_PUBLIC_SITE_URL` (e.g. `https://inkforge.com`) in production so canonical URLs, Open Graph tags, the sitemap and JSON-LD use the real domain.
 
+The site is hidden from search engines by default (`noindex` + `robots.txt` disallow) because the reviews and stats are demo content. Set `NEXT_PUBLIC_ALLOW_INDEXING=true` only when launching with real content.
+
 ## Change the brand name, contact details, shipping rules
 
 Everything lives in **`src/config/site.ts`**:

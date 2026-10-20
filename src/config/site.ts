@@ -12,6 +12,9 @@ export const siteConfig = {
   description:
     "Professional tattoo supplies for artists and studios: sterile cartridge needles, grips, stencil and transfer, machine accessories and studio disposables. Shipped worldwide from Israel.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
+  // Demo content (reviews, stats) must not end up in search results. Set
+  // NEXT_PUBLIC_ALLOW_INDEXING=true only when launching with real content.
+  allowIndexing: process.env.NEXT_PUBLIC_ALLOW_INDEXING === "true",
   locale: "en_US",
 
   currency: "USD",
