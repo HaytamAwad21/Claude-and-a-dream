@@ -37,18 +37,6 @@ export function Header() {
         Skip to content
       </a>
 
-      <div className="border-b border-line bg-ink">
-        <div className="container-site flex h-9 items-center justify-center overflow-hidden text-center">
-          <p className="eyebrow whitespace-nowrap text-[10px] text-muted">
-            <span className="text-acid">●</span> {freeShippingLabel} · Worldwide shipping
-            <span className="hidden sm:inline">
-              {" "}
-              · {siteConfig.returns.days}-day returns · Volume pricing on every box
-            </span>
-          </p>
-        </div>
-      </div>
-
       <header
         className="sticky top-0 z-50 border-b border-line bg-ink/85 backdrop-blur-md"
         onMouseLeave={() => setMegaOpen(false)}
@@ -188,6 +176,18 @@ export function Header() {
           </div>
         )}
       </header>
+
+      <div className="border-b border-line bg-ink">
+        <div className="container-site flex h-9 items-center justify-center overflow-hidden text-center">
+          <p className="eyebrow whitespace-nowrap text-[10px] text-muted">
+            <span className="text-acid">●</span> {freeShippingLabel} · Worldwide shipping
+            <span className="hidden sm:inline">
+              {" "}
+              · {siteConfig.returns.days}-day returns · Volume pricing on every box
+            </span>
+          </p>
+        </div>
+      </div>
 
       <Sheet open={menuOpen} onClose={() => setMenuOpen(false)} side="left" label="Menu">
         <div className="flex h-16 items-center justify-between border-b border-line px-4">
