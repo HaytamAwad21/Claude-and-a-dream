@@ -70,7 +70,7 @@ export function CartPageView() {
           <FreeShippingMeter cart={cart} />
           <dl className="space-y-3 border-t border-line pt-5 text-sm">
             <div className="flex justify-between">
-              <dt className="text-muted">Subtotal ({cart.itemCount} items)</dt>
+              <dt className="text-muted">Subtotal ({cart.itemCount} {cart.itemCount === 1 ? "item" : "items"})</dt>
               <dd className="font-mono text-bone">{formatPrice(cart.subtotal + cart.volumeSavings)}</dd>
             </div>
             {cart.volumeSavings > 0 && (

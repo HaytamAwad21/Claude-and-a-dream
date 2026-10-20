@@ -70,7 +70,7 @@ export function CheckoutView() {
 
   return (
     <form
-      className="grid gap-10 lg:grid-cols-12 lg:gap-14"
+      className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-14"
       onSubmit={(e) => {
         e.preventDefault();
         if (!e.currentTarget.reportValidity()) return;
