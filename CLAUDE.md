@@ -9,6 +9,7 @@ B2B tattoo supply store (placeholder brand INKFORGE). Two people commit to this 
 - **Never add Claude attribution.** No `Co-Authored-By: Claude` trailers, no "Generated with Claude Code" lines in commits or PRs, never add Claude as a collaborator. Commits are authored by the human only.
 - **Never force-push `main`.** Two people push to it.
 - Run `git pull` before changing anything, and `npm run build` before every push (a broken build fails the Vercel deploy).
+- **Keep this file current.** In the same commit as any code change that affects what is documented here (new pages, routes, folders, data files, config keys, conventions, workflow), update CLAUDE.md to match. Remove anything that is no longer true.
 - Next.js 16 with Cache Components: read the bundled docs in `node_modules/next/dist/docs/` before using framework APIs (see AGENTS.md).
 
 ## Stack and layout
